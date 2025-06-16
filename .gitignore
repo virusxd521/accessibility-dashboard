@@ -34,12 +34,6 @@ coverage/
 .env.test.local
 .env.production.local
 
-# Package manager files (optional to ignore if you're regenerating or committing lock files elsewhere)
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-shrinkwrap.yaml
-
 # Project management tools
 lerna.json
 .npmrc
