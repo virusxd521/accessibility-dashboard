@@ -45,19 +45,23 @@ const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
   const [llmLoading, setLlmLoading] = useState<boolean>(false);
   const [llmError, setLlmError] = useState<string | null>(null);
 
-  // Environment variables for OpenRouter API
   const OPENROUTER_API_KEY = import.meta.env.VITE_REACT_APP_OPENROUTER_API_KEY;
   const OPENROUTER_MODEL = import.meta.env.VITE_REACT_APP_OPENROUTER_MODEL;
 
   const getLlmSuggestion = useCallback(async () => {
     if (!OPENROUTER_API_KEY || !OPENROUTER_MODEL) {
+      console.error("Missing API key or model:", {
+        keyExists: !!OPENROUTER_API_KEY,
+        keyLength: OPENROUTER_API_KEY?.length || 0,
+        modelExists: !!OPENROUTER_MODEL
+      });
       setLlmError("API key or model not configured. Please check .env file.");
       return;
     }
 
     setLlmLoading(true);
     setLlmError(null);
-    setLlmSuggestion(''); // Clear previous suggestion
+    setLlmSuggestion('');
 
     const prompt = `
       You are an accessibility expert providing a concise and actionable suggestion for an accessibility issue.
@@ -79,6 +83,8 @@ const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
         headers: {
           "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
+          "HTTP-Referer": window.location.origin,
+          "X-Title": "Accessibility Dashboard"
         },
         body: JSON.stringify({
           model: OPENROUTER_MODEL,
@@ -107,7 +113,7 @@ const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
   }, [issue, OPENROUTER_API_KEY, OPENROUTER_MODEL]);
 
   return (
-    <div className="issue-details-content"> {/* Use this class for the content div */}
+    <div className="issue-details-content">
       <div className="detail-row">
         <div className="detail-label">Issue Code:</div>
         <div className="detail-content">{escapeHtml(issue.code)}</div>
@@ -134,7 +140,6 @@ const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
           </div>
         </div>
       )}
-      {/* LLM Suggestion Section */}
       <div className="detail-row" style={{ marginTop: '20px', borderTop: '1px solid #ccc', paddingTop: '20px' }}>
         <div className="detail-label">AI Suggestion:</div>
         <div className="detail-content">

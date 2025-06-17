@@ -49,12 +49,12 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onSelectReport }) => {
     >
       <div className="card-header">
         <FontAwesomeIcon icon={faFileAlt} />
-        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{report.title || report.url}</h3>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{report.reportData.body.documentTitle || report.url}</h3>
       </div>
       <div className="card-body">
         <p style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
           <FontAwesomeIcon icon={faLink} style={{ color: customColors.secondary }} />
-          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{report.url}</span>
+          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{report.reportData.body.pageUrl}</span>
         </p>
         <p style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', color: customColors.gray }}>
           <FontAwesomeIcon icon={faSyncAlt} style={{ color: customColors.gray }} />

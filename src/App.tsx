@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUniversalAccess, faDownload, faCog, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Navigate } from 'react-router-dom';
 
 import MessageBox from './components/MessageBox';
 import ReportList from './components/ReportList';
@@ -56,12 +57,39 @@ const customColors = {
 
 const N8N_API_URL = import.meta.env.VITE_REACT_APP_N8N_API_URL;
 
-const App: React.FC = () => {
+const ReportDetailWrapper: React.FC<{ reports: StoredReport[], isLoading: boolean }> = ({ reports, isLoading }) => {
+  const { reportId } = useParams<{ reportId: string }>();
+  const navigate = useNavigate();
+  const selectedReport = reports.find(report => report._id === reportId);
+
+  if (isLoading && !selectedReport) {
+    return (
+      <div className="container" style={{ textAlign: 'center', padding: '50px 0' }}>
+        <div className="loading-spinner"></div>
+        <p>Loading report details...</p>
+      </div>
+    );
+  }
+
+  if (!isLoading && !selectedReport) {
+    return <Navigate to="/" replace />;
+  }
+
+  const handleBackToList = () => {
+    navigate('/');
+  };
+
+  return selectedReport ? (
+    <ReportDetail report={selectedReport} onBackToList={handleBackToList} />
+  ) : null;
+};
+
+const AppContent: React.FC = () => {
   const [reports, setReports] = useState<StoredReport[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedReport, setSelectedReport] = useState<StoredReport | null>(null);
   const [messageBox, setMessageBox] = useState<{ show: boolean; message: string; type: 'success' | 'error' | 'info' | 'warning' }>({ show: false, message: '', type: 'success' });
+  const navigate = useNavigate();
 
   const showMessageBox = useCallback((message: string, type: 'success' | 'error' | 'info' | 'warning' = 'success') => {
     setMessageBox({ show: true, message, type });
@@ -82,18 +110,23 @@ const App: React.FC = () => {
     }
 
     try {
-      const response = await fetch(N8N_API_URL);
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! Status: ${response.status}. Response: ${errorText || 'No response body.'}`);
-      }
+      const response = await fetch(N8N_API_URL, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
 
       const responseText = await response.text();
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}. Response: ${responseText || 'No response body.'}`);
+      }
+
       if (!responseText) {
-        console.warn('Received empty response body from n8n. Assuming no reports.');
         setReports([]);
         showMessageBox('No reports available.', 'info');
+        setLoading(false);
         return;
       }
 
@@ -101,7 +134,7 @@ const App: React.FC = () => {
       try {
         rawData = JSON.parse(responseText);
       } catch (jsonParseError: any) {
-        throw new SyntaxError(`Failed to parse JSON from n8n response. Raw response: "${responseText}". Error: ${jsonParseError.message}`);
+        throw new SyntaxError(`Failed to parse JSON from n8n response. Raw response: "${responseText.substring(0, 100)}...". Error: ${jsonParseError.message}`);
       }
 
       const processedReports: StoredReport[] = Array.isArray(rawData) ? rawData : (rawData.data || []);
@@ -113,24 +146,20 @@ const App: React.FC = () => {
       if (err instanceof SyntaxError && err.message.includes('Failed to parse JSON')) {
         setError(`Error parsing report data: ${err.message}. This usually means n8n returned invalid or empty data. Please check n8n's workflow execution for the 'Read Reports API' webhook.`);
       } else {
-        setError(`Failed to load reports: ${err.message}. Please check the n8n API endpoint, ensure ngrok/n8n are running, and check browser console for network errors.`);
+        setError(`Failed to load reports: ${err.message}. Please check the n8n API endpoint, ensure it's running, and check browser console for network errors.`);
       }
       showMessageBox('Failed to load reports.', 'error');
     } finally {
       setLoading(false);
     }
-  }, [N8N_API_URL, showMessageBox]);
+  }, [showMessageBox]);
 
   useEffect(() => {
     fetchReports();
   }, [fetchReports]);
 
   const handleSelectReport = (report: StoredReport) => {
-    setSelectedReport(report);
-  };
-
-  const handleBackToList = () => {
-    setSelectedReport(null);
+    navigate(`/report/${report._id}`);
   };
 
   return (
@@ -167,21 +196,43 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {selectedReport ? (
-        <ReportDetail report={selectedReport} onBackToList={handleBackToList} />
-      ) : (
-        <ReportList reports={reports} loading={loading} error={error} fetchReports={fetchReports} onSelectReport={handleSelectReport} />
-      )}
+      <Routes>
+        <Route path="/" element={
+          <ReportList
+            reports={reports}
+            loading={loading}
+            error={error}
+            fetchReports={fetchReports}
+            onSelectReport={handleSelectReport}
+          />
+        } />
+        <Route path="/report/:reportId" element={
+          <ReportDetailWrapper reports={reports} isLoading={loading} />
+        } />
+      </Routes>
 
-      <footer>
+      <footer style={{
+        backgroundColor: customColors.dark,
+        color: 'white',
+        padding: '15px 0',
+        marginTop: 'auto',
+        textAlign: 'center',
+        borderTop: `4px solid ${customColors.primary}`
+      }}>
         <div className="container">
-          <p>Accessibility Dashboard &copy; 2025 | Powered by Pa11y, n8n, and React</p>
-          <p>For accessibility assistance, contact: access-team@example.com</p>
+          <p>Accessibility Dashboard &copy; {new Date().getFullYear()} | Powered by Pa11y and n8n</p>
         </div>
       </footer>
     </div>
   );
 };
 
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+};
+
 export default App;
-    
