@@ -55,3 +55,6 @@ lerna.json
 # Misc
 *.local
 *.tgz
+
+# Local Netlify folder
+.netlify
