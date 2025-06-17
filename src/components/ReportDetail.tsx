@@ -1,60 +1,14 @@
+
 import React, { useState, useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faLink, faBug, faExclamationCircle, faChartPie, faTags, faList, faChevronDown, faChevronUp, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-
 import IssueDetail from './IssueDetail';
+import type { StoredReport, Pa11yBodyData } from '../types';
+import { customColors } from '../types';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
-
-interface Pa11yBodyData {
-  documentTitle: string;
-  documentUrl: string;
-  issues: Pa11yIssue[];
-  pageUrl?: string;
-}
-
-interface RawReportData {
-  headers: Record<string, any>;
-  params: Record<string, any>;
-  query: Record<string, any>;
-  body: Pa11yBodyData;
-  webhookUrl: string;
-  executionMode: string;
-}
-
-interface Pa11yIssue {
-  code: string;
-  type: 'error' | 'warning' | 'notice';
-  message: string;
-  context: string;
-  selector: string;
-  runner: string;
-  runnerExtras?: Record<string, any>;
-}
-
-interface StoredReport {
-  _id: string;
-  timestamp: string;
-  url: string;
-  title: string;
-  issuesCount: number;
-  errorsCount: number;
-  reportData: RawReportData;
-}
-
-const customColors = {
-  primary: '#2c3e50',
-  secondary: '#3498db',
-  danger: '#e74c3c',
-  warning: '#f39c12',
-  success: '#2ecc71',
-  light: '#ecf0f1',
-  dark: '#34495e',
-  info: '#3498db',
-  gray: '#95a5a6',
-};
 
 const escapeHtml = (unsafe: string): string => {
   if (typeof unsafe !== 'string') {
@@ -169,7 +123,11 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, onBackToList }) => 
       },
       tooltip: {
         callbacks: {
-          label: ({ label, raw }: { label: string; raw: number }) => `${label}: ${raw}`
+          label: function(context: any) {
+            const label = context.label || '';
+            const value = context.raw || 0;
+            return `${label}: ${value}`;
+          }
         }
       }
     },

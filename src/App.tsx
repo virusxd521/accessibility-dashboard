@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUniversalAccess, faDownload, faCog, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
@@ -6,54 +7,9 @@ import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Navigat
 import MessageBox from './components/MessageBox';
 import ReportList from './components/ReportList';
 import ReportDetail from './components/ReportDetail';
+import { customColors } from './types';
+import type { StoredReport } from './types';
 
-interface Pa11yBodyData {
-  documentTitle: string;
-  documentUrl: string;
-  issues: Pa11yIssue[];
-  pageUrl?: string;
-}
-
-interface RawReportData {
-  headers: Record<string, any>;
-  params: Record<string, any>;
-  query: Record<string, any>;
-  body: Pa11yBodyData;
-  webhookUrl: string;
-  executionMode: string;
-}
-
-interface Pa11yIssue {
-  code: string;
-  type: 'error' | 'warning' | 'notice';
-  message: string;
-  context: string;
-  selector: string;
-  runner: string;
-  runnerExtras?: Record<string, any>;
-}
-
-interface StoredReport {
-  _id: string;
-  timestamp: string;
-  url: string;
-  title: string;
-  issuesCount: number;
-  errorsCount: number;
-  reportData: RawReportData;
-}
-
-const customColors = {
-  primary: '#2c3e50',
-  secondary: '#3498db',
-  danger: '#e74c3c',
-  warning: '#f39c12',
-  success: '#2ecc71',
-  light: '#ecf0f1',
-  dark: '#34495e',
-  info: '#3498db',
-  gray: '#95a5a6',
-};
 
 const N8N_API_URL = import.meta.env.VITE_REACT_APP_N8N_API_URL;
 

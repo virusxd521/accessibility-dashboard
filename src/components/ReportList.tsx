@@ -1,39 +1,17 @@
+
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faLink, faBug, faExclamationCircle, faSpinner, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import type { StoredReport } from '../types';
+import { customColors } from '../types';
 
-interface Pa11yBodyData {
-  documentTitle: string;
-  documentUrl: string;
-  issues: any[];
-  pageUrl?: string;
+interface ReportListProps {
+  reports: StoredReport[];
+  loading: boolean;
+  error: string | null;
+  fetchReports: () => void;
+  onSelectReport: (report: StoredReport) => void;
 }
-
-interface RawReportData {
-  body: Pa11yBodyData;
-}
-
-interface StoredReport {
-  _id: string;
-  timestamp: string;
-  url: string;
-  title: string;
-  issuesCount: number;
-  errorsCount: number;
-  reportData: RawReportData;
-}
-
-const customColors = {
-  primary: '#2c3e50',
-  secondary: '#3498db',
-  danger: '#e74c3c',
-  warning: '#f39c12',
-  success: '#2ecc71',
-  light: '#ecf0f1',
-  dark: '#34495e',
-  info: '#3498db',
-  gray: '#95a5a6',
-};
 
 interface ReportCardProps {
   report: StoredReport;
@@ -64,22 +42,14 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onSelectReport }) => {
           <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             <FontAwesomeIcon icon={faBug} style={{ color: customColors.primary }} /> {report.issuesCount} Issues
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: customColors.danger }}>
-            <FontAwesomeIcon icon={faExclamationCircle} /> {report.errorsCount} Errors
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <FontAwesomeIcon icon={faExclamationCircle} style={{ color: customColors.danger }} /> {report.errorsCount} Errors
           </span>
         </div>
       </div>
     </div>
   );
 };
-
-interface ReportListProps {
-  reports: StoredReport[];
-  loading: boolean;
-  error: string | null;
-  fetchReports: () => void;
-  onSelectReport: (report: StoredReport) => void;
-}
 
 const ReportList: React.FC<ReportListProps> = ({ reports, loading, error, fetchReports, onSelectReport }) => {
   if (loading) {
