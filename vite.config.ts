@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/n8n': {
+      'https://accessibility-dashboard.netlify.app/api/n8n': {
         target: 'https://a570-2a00-a041-e569-1e00-fc03-a411-513d-3bb9.ngrok-free.app',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api\/n8n/, ''),
