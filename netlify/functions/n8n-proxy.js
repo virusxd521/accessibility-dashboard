@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 export async function handler(event) {
   const endpoint = event.path.replace('/.netlify/functions/n8n-proxy', '');
-  const url = `https://architecture-bones-parliamentary-wars.trycloudflare.com${endpoint}`;
+  const url = `https://rendered-cloud-salon-mpeg.trycloudflare.com${endpoint}`;
 
   const res = await fetch(url, {
     method: event.httpMethod,

@@ -2,10 +2,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp, faInfoCircle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import IssueDetail from './IssueDetail';
-import { customColors } from '../../types';
 import type { Pa11yIssue } from '../../types';
 import { useWcagExplanation } from '../../hooks/useWcagExplanation';
-import './IssueRow.css'; // Create this CSS file for the styles
+import './IssueRow.css';
 
 interface IssueRowProps {
   issue: Pa11yIssue;

@@ -4,7 +4,7 @@
 
 [[redirects]]
   from = "/api/n8n/*"
-  to = "https://architecture-bones-parliamentary-wars.trycloudflare.com/:splat"
+  to = "https://rendered-cloud-salon-mpeg.trycloudflare.com/:splat"
   status = 200
   force = true
   headers = {Access-Control-Allow-Origin = "*"}

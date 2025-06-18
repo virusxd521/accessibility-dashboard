@@ -1,12 +1,19 @@
 import React, { useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faLightbulb } from '@fortawesome/free-solid-svg-icons';
-import { type Pa11yIssue, customColors } from '../../types';
+import { type Pa11yIssue } from '../../types';
 import ReactMarkdown from 'react-markdown';
-import './IssueDetail.css'; // Make sure to create this CSS file
+import type { Components } from 'react-markdown';
+import './IssueDetail.css';
 
 interface IssueDetailProps {
   issue: Pa11yIssue;
+}
+
+interface MarkdownComponentProps {
+  node?: any;
+  children?: React.ReactNode;
+  [key: string]: any;
 }
 
 const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
@@ -58,16 +65,16 @@ const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
   }, [issue]);
 
   // Custom components for ReactMarkdown
-  const markdownComponents = {
-    p: ({ node, ...props }) => <p className="markdown-paragraph" {...props} />,
-    h1: ({ node, ...props }) => <h1 className="markdown-heading" {...props} />,
-    h2: ({ node, ...props }) => <h2 className="markdown-heading" {...props} />,
-    h3: ({ node, ...props }) => <h3 className="markdown-heading" {...props} />,
-    h4: ({ node, ...props }) => <h4 className="markdown-heading" {...props} />,
-    ul: ({ node, ...props }) => <ul className="markdown-list" {...props} />,
-    ol: ({ node, ...props }) => <ol className="markdown-list" {...props} />,
-    li: ({ node, ...props }) => <li className="markdown-list-item" {...props} />,
-    code: ({ node, inline, ...props }) =>
+  const markdownComponents: Components  = {
+    p: ({ node, ...props }: MarkdownComponentProps) => <p className="markdown-paragraph" {...props} />,
+    h1: ({ node, ...props }: MarkdownComponentProps) => <h1 className="markdown-heading" {...props} />,
+    h2: ({ node, ...props }: MarkdownComponentProps) => <h2 className="markdown-heading" {...props} />,
+    h3: ({ node, ...props }: MarkdownComponentProps) => <h3 className="markdown-heading" {...props} />,
+    h4: ({ node, ...props }: MarkdownComponentProps) => <h4 className="markdown-heading" {...props} />,
+    ul: ({ node, ...props }: MarkdownComponentProps) => <ul className="markdown-list" {...props} />,
+    ol: ({ node, ...props }: MarkdownComponentProps) => <ol className="markdown-list" {...props} />,
+    li: ({ node, ...props }: MarkdownComponentProps) => <li className="markdown-list-item" {...props} />,
+    code: ({ node, inline, ...props }: MarkdownComponentProps & { inline?: boolean }) =>
       inline ?
         <code className="markdown-inline-code" {...props} /> :
         <code className="markdown-block-code" {...props} />,

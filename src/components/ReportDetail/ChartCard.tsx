@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Chart as ChartJS,
@@ -8,7 +8,6 @@ import {
   ArcElement,
   Title,
   Tooltip,
-  Legend
 } from 'chart.js';
 import { useChartKey } from '../../hooks/useChartKey';
 import { customColors } from '../../types';
@@ -31,13 +30,7 @@ interface ChartCardProps {
 }
 
 const ChartCard: React.FC<ChartCardProps> = ({
-                                               icon,
-                                               title,
-                                               Component,
-                                               data,
-                                               options = { responsive: true, maintainAspectRatio: false },
-                                             }) => {
-  // Generate a unique key for this chart instance
+icon, title, Component, data, options = { responsive: true, maintainAspectRatio: false }}) => {
   const chartKey = useChartKey(data);
 
   return (

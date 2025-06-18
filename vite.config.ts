@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/n8n': {
-        target: 'https://a570-2a00-a041-e569-1e00-fc03-a411-513d-3bb9.ngrok-free.app',
+        target: 'https://rendered-cloud-salon-mpeg.trycloudflare.com',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api\/n8n/, ''),
         secure: false,

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUniversalAccess, faDownload, faCog, faSyncAlt, faSpinner} from '@fortawesome/free-solid-svg-icons';
+import {faUniversalAccess, faSyncAlt, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Navigate } from 'react-router-dom';
 
 import MessageBox from './components/MessageBox';
