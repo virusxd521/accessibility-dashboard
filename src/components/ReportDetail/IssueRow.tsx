@@ -4,7 +4,6 @@ import { faChevronDown, faChevronUp, faInfoCircle, faSpinner } from '@fortawesom
 import IssueDetail from './IssueDetail';
 import type { Pa11yIssue } from '../../types';
 import { useWcagExplanation } from '../../hooks/useWcagExplanation';
-import './IssueRow.css';
 
 interface IssueRowProps {
   issue: Pa11yIssue;

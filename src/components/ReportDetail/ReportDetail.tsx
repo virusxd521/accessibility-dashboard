@@ -51,8 +51,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report, onBackToList }) => 
     };
   }, [pa11yDetails]);
 
-  console.log(pa11yDetails, report)
-
   return (
     <div className="container">
       <button onClick={onBackToList} className="btn btn-primary">
