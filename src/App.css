@@ -40,3 +40,73 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Explicit Table Styles */
+
+table.issues-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table.issues-table thead {
+  background-color: #ecf0f1;
+}
+
+table.issues-table th {
+  padding: 14px;
+  font-weight: 600;
+  color: #34495e;
+  border-bottom: 2px solid #ddd;
+}
+
+table.issues-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e8eef2;
+}
+
+table.issues-table tbody tr:hover {
+  background-color: #f8fafd;
+}
+
+.issue-details-row td {
+  background-color: #f1f6fa;
+  padding: 16px;
+  border-top: none;
+}
+
+.badge-error { background-color: #e74c3c; }
+.badge-warning { background-color: #f39c12; }
+.badge-notice { background-color: #2ecc71; }
+
+/* Button inside table cells */
+table.issues-table button.toggle-details {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #3498db;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+table.issues-table button.toggle-details:hover {
+  text-decoration: underline;
+}
+
+/* WCAG explanation text */
+.wcag-explanation {
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #eaf4fc;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #34495e;
+}
+

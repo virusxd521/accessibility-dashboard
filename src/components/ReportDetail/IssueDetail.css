@@ -1,0 +1,188 @@
+.issue-detail {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.issue-detail h4 {
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+}
+
+.issue-detail section {
+    margin-bottom: 16px;
+}
+
+.issue-detail section strong {
+    width: 120px;
+    font-weight: 600;
+    color: #555;
+}
+
+.code-snippet {
+    color: black;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin-top: 8px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* AI Suggestion Section Styling */
+.ai-suggestion-section {
+    margin-top: 32px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.ai-suggestion-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #4a6fa5, #6383b3);
+    color: white;
+    padding: 14px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ai-suggestion-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.ai-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: #ffeb3b;
+}
+
+.ai-loading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    background-color: #f5f9ff;
+    color: #4a6fa5;
+    font-size: 0.95rem;
+}
+
+.ai-loading svg {
+    color: #4a6fa5;
+    font-size: 1.2rem;
+}
+
+.ai-error {
+    padding: 20px;
+    background-color: #fff5f5;
+    color: #d32f2f;
+    border-left: 4px solid #d32f2f;
+}
+
+.ai-content {
+    padding: 20px;
+    background-color: white;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.ai-suggestion-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+    padding: 12px 20px;
+    background-color: #4a6fa5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: auto;
+}
+
+.ai-suggestion-button:hover {
+    background-color: #3a5a8a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Markdown content styling */
+.markdown-paragraph {
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.markdown-heading {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.markdown-list {
+    margin-left: 20px;
+    margin-bottom: 16px;
+    padding-left: 16px;
+}
+
+.markdown-list-item {
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.markdown-inline-code {
+    background-color: #f0f0f0;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9em;
+    color: #e53935;
+}
+
+.markdown-code-block {
+    background-color: #f5f5f5;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 16px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.markdown-block-code {
+    background-color: transparent;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.markdown-blockquote {
+    border-left: 4px solid #4a6fa5;
+    padding: 10px 20px;
+    margin: 16px 0;
+    background-color: #f8f9fa;
+    color: #555;
+    font-style: italic;
+}
+
+.markdown-link {
+    color: #3498db;
+    text-decoration: none;

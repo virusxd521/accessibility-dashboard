@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUniversalAccess, faDownload, faCog, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import {faUniversalAccess, faDownload, faCog, faSyncAlt, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Navigate } from 'react-router-dom';
 
 import MessageBox from './components/MessageBox';
 import ReportList from './components/ReportList';
-import ReportDetail from './components/ReportDetail';
+import ReportDetail from './components/ReportDetail/ReportDetail';
 import { customColors } from './types';
 import type { StoredReport } from './types';
 
@@ -20,15 +20,24 @@ const ReportDetailWrapper: React.FC<{ reports: StoredReport[], isLoading: boolea
 
   if (isLoading && !selectedReport) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '50px 0' }}>
-        <div className="loading-spinner"></div>
-        <p>Loading report details...</p>
+      <div className="loading-screen" style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: customColors.light,
+        color: customColors.dark
+      }}>
+        <FontAwesomeIcon icon={faSpinner} spin
+                         style={{fontSize: '3rem', color: customColors.secondary, marginBottom: '16px'}}/>
+        <p style={{fontSize: '1.25rem'}}>Loading report details...</p>
       </div>
     );
   }
 
   if (!isLoading && !selectedReport) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" replace/>;
   }
 
   const handleBackToList = () => {
@@ -36,7 +45,7 @@ const ReportDetailWrapper: React.FC<{ reports: StoredReport[], isLoading: boolea
   };
 
   return selectedReport ? (
-    <ReportDetail report={selectedReport} onBackToList={handleBackToList} />
+    <ReportDetail report={selectedReport} onBackToList={handleBackToList}/>
   ) : null;
 };
 
@@ -134,18 +143,6 @@ const AppContent: React.FC = () => {
                 className="btn btn-primary"
               >
                 <FontAwesomeIcon icon={faSyncAlt} /> Refresh Reports
-              </button>
-              <button
-                onClick={() => showMessageBox('Export functionality would be implemented here!', 'info')}
-                className="btn btn-outline"
-              >
-                <FontAwesomeIcon icon={faDownload} /> Export
-              </button>
-              <button
-                onClick={() => showMessageBox('Settings functionality would be implemented here!', 'info')}
-                className="btn btn-outline"
-              >
-                <FontAwesomeIcon icon={faCog} /> Settings
               </button>
             </div>
           </div>

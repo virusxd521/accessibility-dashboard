@@ -116,21 +116,17 @@ const IssueDetail: React.FC<IssueDetailProps> = ({ issue }) => {
     <div className="issue-details-content">
       <div className="detail-row">
         <div className="detail-label">Issue Code:</div>
-        <div className="detail-content">{escapeHtml(issue.code)}</div>
+        <div className="detail-content">{issue.code}</div>
       </div>
       <div className="detail-row">
         <div className="detail-label">Context:</div>
         <div className="detail-content">
-          <pre className="code-snippet">{escapeHtml(issue.context)}</pre>
+          <pre className="code-snippet">{issue.context}</pre>
         </div>
       </div>
       <div className="detail-row">
         <div className="detail-label">Selector:</div>
-        <div className="detail-content">{escapeHtml(issue.selector)}</div>
-      </div>
-      <div className="detail-row">
-        <div className="detail-label">Runner:</div>
-        <div className="detail-content">{escapeHtml(issue.runner)}</div>
+        <div className="detail-content">{issue.selector}</div>
       </div>
       {issue.runnerExtras && Object.keys(issue.runnerExtras).length > 0 && (
         <div className="detail-row">
