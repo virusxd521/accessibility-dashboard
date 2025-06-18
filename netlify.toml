@@ -4,7 +4,7 @@
 
 [[redirects]]
   from = "/api/n8n/*"
-  to = "https://a570-2a00-a041-e569-1e00-fc03-a411-513d-3bb9.ngrok-free.app/:splat"
+  to = "https://architecture-bones-parliamentary-wars.trycloudflare.com/:splat"
   status = 200
   force = true
   headers = {Access-Control-Allow-Origin = "*"}
